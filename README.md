@@ -2,7 +2,7 @@
 
 **FrameUp is a static, browser-only screenshot composer.**
 
-It combines a screenshot and a background into a crisp 1200 × 630 PNG without uploading either image.
+It combines a screenshot and a background into a high-resolution 2400 × 1260 PNG without uploading either image.
 
 All processing is done by the browser, no backend. 100% free to use, no accounts, no subscription, no cookies.
 
