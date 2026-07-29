@@ -65,7 +65,7 @@ const presetBackgrounds = (await readdir(presetDirectory))
             <button type="button" data-background-mode="upload">Upload background</button>
             <button type="button" data-background-mode="color">Color background</button>
           </div>
-          <div class="background-panel" data-background-panel="presets"><a class="preset-backgrounds-link" href="https://www.color4bg.com" target="_blank" rel="noopener noreferrer">Infinite possibilities - create your own on color4bg.com</a><div class="preset-grid" aria-label="Preset background images">
+          <div class="background-panel" data-background-panel="presets"><a class="preset-backgrounds-link" href="https://www.color4bg.com" target="_blank" rel="noopener noreferrer">Create your own on color4bg.com</a><div class="preset-grid" aria-label="Preset background images">
             {presetBackgrounds.map((preset, index) => <button type="button" class:list={["preset-card", { selected: index === 0 }]} data-preset-src={preset.src} data-preset-name={preset.name} aria-pressed={index === 0 ? "true" : "false"} aria-label={`Choose background ${preset.name}`}><img src={preset.previewSrc} alt="" width="110" height="82" loading="lazy" decoding="async" /></button>)}
           </div></div>
           <div class="background-panel" data-background-panel="upload" hidden><label class="upload-card"><input id="background-upload" type="file" accept="image/png,image/jpeg,image/webp" /><span class="upload-icon" aria-hidden="true">✦</span><span class="upload-copy"><strong>Background image</strong><small id="background-file-name">PNG, JPEG, or WebP</small></span><span class="upload-action">Choose or drop</span></label></div>

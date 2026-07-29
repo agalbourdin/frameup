@@ -25,7 +25,7 @@ test("build produces a portable static application", async () => {
   assert.match(html, /<meta property="og:title" content="Free Online Screenshot Composer for Social Media \| FrameUp">/);
   assert.match(html, /<meta name="twitter:card" content="summary_large_image">/);
   assert.match(html, /type="application\/ld\+json"/);
-  assert.match(html, /href="https:\/\/www\.color4bg\.com" target="_blank" rel="noopener noreferrer">Infinite possibilities - create your own on color4bg\.com/);
+  assert.match(html, /href="https:\/\/www\.color4bg\.com" target="_blank" rel="noopener noreferrer">Create your own on color4bg\.com/);
   assert.match(html, /href="https:\/\/www\.alexisg\.net" target="_blank" rel="noopener noreferrer">alexisg/);
   assert.match(html, /href="https:\/\/github\.com\/agalbourdin\/frameup" target="_blank" rel="noopener noreferrer">View FrameUp on GitHub/);
   assert.match(html, /2400 × 1260 PX/);
