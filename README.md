@@ -15,7 +15,7 @@ Options available:
 
 ## Use it online
 
-The production site is published at https://agalbourdin.github.io/frameup/
+The production site is published at [frameup.alexisg.net](https://frameup.alexisg.net) (deployed on GitHub Pages).
 
 ## Use it locally
 
