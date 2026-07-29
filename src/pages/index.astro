@@ -1,14 +1,17 @@
 ---
+import { readdir } from "node:fs/promises";
+import { resolve } from "node:path";
 import "../styles/globals.css";
 
-const presetBackgrounds = [
-  "0_purple_grained.png", "blue.png", "blue_grained.png", "multicolor.png",
-  "multicolor_grained.png", "orange_grained.png", "pink.png", "pink_grained.png",
-  "purple.png", "yellow.png",
-].map((filename) => ({
-  src: `./preset-backgrounds/${filename}`,
-  name: filename.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " "),
-}));
+const presetDirectory = resolve(process.cwd(), "public/preset-backgrounds");
+const supportedImage = /\.(avif|gif|jpe?g|png|webp)$/i;
+const presetBackgrounds = (await readdir(presetDirectory))
+  .filter((filename) => supportedImage.test(filename))
+  .sort((left, right) => left.localeCompare(right))
+  .map((filename) => ({
+    src: `/preset-backgrounds/${filename}`,
+    name: filename.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " "),
+  }));
 ---
 
 <!doctype html>
@@ -35,7 +38,7 @@ const presetBackgrounds = [
             <button type="button" data-background-mode="upload">Upload background</button>
             <button type="button" data-background-mode="color">Color background</button>
           </div>
-          <div class="background-panel" data-background-panel="presets"><div class="preset-grid" aria-label="Preset background images">
+          <div class="background-panel" data-background-panel="presets"><a class="preset-backgrounds-link" href="https://www.color4bg.com" target="_blank" rel="noopener noreferrer">Infinite possibilities - create your own on color4bg.com</a><div class="preset-grid" aria-label="Preset background images">
             {presetBackgrounds.map((preset, index) => <button type="button" class:list={["preset-card", { selected: index === 0 }]} data-preset-src={preset.src} data-preset-name={preset.name} aria-pressed={index === 0 ? "true" : "false"} aria-label={`Choose background ${preset.name}`}><img src={preset.src} alt="" /></button>)}
           </div></div>
           <div class="background-panel" data-background-panel="upload" hidden><label class="upload-card"><input id="background-upload" type="file" accept="image/png,image/jpeg,image/webp" /><span class="upload-icon" aria-hidden="true">✦</span><span class="upload-copy"><strong>Background image</strong><small id="background-file-name">PNG, JPEG, or WebP</small></span><span class="upload-action">Choose or drop</span></label></div>

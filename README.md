@@ -1,39 +1,32 @@
 # FrameUp
 
-FrameUp is a static, browser-only screenshot composer. It combines a screenshot
-and a background into a 1200 × 630 PNG without uploading either image.
+**FrameUp is a static, browser-only screenshot composer.**
 
-## Prerequisites
+It combines a screenshot and a background into a 1200 × 630 PNG without uploading either image.
 
-- Node.js `>=22.13.0`
+All processing is done by the browser, no backend. 100% free to use, no accounts, no subscription, no cookies.
+
+Options available:
+- Preset background - Upload your own background - Use a specific color or gradient
+- Blur background (for uploaded backgrounds) - apply a 20px blur, 110% scale and -10% brightness
+- Add a shadow to the screenshot
+- Corner radius - 3 options (0, 16px, 32px)
+- Padding - 3 options (25px, 50px, 75px)
+
+## Use it online
+
+The production site is published at https://agalbourdin.github.io/frameup/
+
+## Use it locally
+
+### Requirements
+
+- Node.js `>= 22.13.0`
 - pnpm
 
-## Quick start
+### Quick start
 
 ```bash
 pnpm install
 pnpm dev
 ```
-
-## Deployment
-
-`pnpm build` produces a fully static site in `dist/`. Upload that directory's
-contents to any static host. Asset URLs are relative, so the same build works at
-the domain root or under a subdirectory.
-
-### GitHub Pages
-
-The production site is published at https://agalbourdin.github.io/frameup/.
-Pushing to `main` (or manually running the **Deploy to GitHub Pages** workflow)
-runs the type-check and static-build tests, then deploys `dist/` to GitHub Pages.
-
-Before the first deployment, open the repository **Settings → Pages** and set
-**Build and deployment → Source** to **GitHub Actions**. No Astro URL change is
-needed: the generated asset URLs are relative and work under `/frameup/`.
-
-## Commands
-
-- `pnpm build`: produce `dist/`
-- `pnpm preview`: serve the production build locally
-- `pnpm check`: type-check the Astro project
-- `pnpm test`: build and verify the generated static site
