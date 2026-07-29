@@ -36,6 +36,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Set the public site URL
+        run: echo "SITE_URL=${{ vars.SITE_URL || format('https://{0}.github.io/{1}/', github.repository_owner, github.event.repository.name) }}" >> "$GITHUB_ENV"
+
       - name: Type-check
         run: pnpm check
 

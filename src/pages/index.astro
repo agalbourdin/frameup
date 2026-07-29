@@ -5,11 +5,27 @@ import "../styles/globals.css";
 
 const presetDirectory = resolve(process.cwd(), "public/preset-backgrounds");
 const supportedImage = /\.(avif|gif|jpe?g|png|webp)$/i;
+const siteUrl = import.meta.env.SITE;
+const publicPageUrl = siteUrl ? new URL(siteUrl.endsWith("/") ? siteUrl : `${siteUrl}/`).toString() : undefined;
+const openGraphImage = publicPageUrl ? new URL("og.png", publicPageUrl).toString() : undefined;
+const title = "Free Online Screenshot Composer for Social Media | FrameUp";
+const description = "Create polished, share-ready screenshots in your browser. FrameUp is free, private, open source, and requires no sign-up.";
+const structuredData = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "FrameUp",
+  description,
+  applicationCategory: "MultimediaApplication",
+  operatingSystem: "Any",
+  isAccessibleForFree: true,
+  ...(publicPageUrl ? { url: publicPageUrl } : {}),
+});
 const presetBackgrounds = (await readdir(presetDirectory))
   .filter((filename) => supportedImage.test(filename))
   .sort((left, right) => left.localeCompare(right))
   .map((filename) => ({
-    src: `/preset-backgrounds/${filename}`,
+    src: `./preset-backgrounds/${filename}`,
+    previewSrc: `./preset-backgrounds/preview/${filename}`,
     name: filename.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " "),
   }));
 ---
@@ -19,8 +35,19 @@ const presetBackgrounds = (await readdir(presetDirectory))
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="FrameUp transforms raw screenshots into polished visuals for social media in seconds. Free, open source, and no signup required." />
-    <title>FrameUp | The fastest way to make beautiful screenshots</title>
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    {publicPageUrl && <link rel="canonical" href={publicPageUrl} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {publicPageUrl && <meta property="og:url" content={publicPageUrl} />}
+    {openGraphImage && <meta property="og:image" content={openGraphImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {openGraphImage && <meta name="twitter:image" content={openGraphImage} />}
+    <script is:inline type="application/ld+json" set:html={structuredData}></script>
     <link rel="icon" href="./favicon.ico" />
     <link rel="icon" href="./favicon-16x16.png" sizes="16x16" type="image/png" />
     <link rel="icon" href="./favicon-32x32.png" sizes="32x32" type="image/png" />
@@ -30,7 +57,7 @@ const presetBackgrounds = (await readdir(presetDirectory))
   </head>
   <body>
     <main>
-      <section class="hero" aria-labelledby="page-title"><h1 id="page-title">FrameUp</h1><p class="intro">FrameUp transforms raw screenshots into polished visuals for social media in seconds. Free, open source, and no signup required.</p></section>
+      <section class="hero" aria-labelledby="page-title"><h1 id="page-title">FrameUp</h1><p class="intro">FrameUp transforms raw screenshots into polished, share-ready visuals in seconds. Free, open source, private by design, and no sign-up required.</p></section>
       <section class="workspace" aria-label="Visual creation">
         <div class="controls">
           <div class="background-source" aria-label="Background image source">
@@ -39,7 +66,7 @@ const presetBackgrounds = (await readdir(presetDirectory))
             <button type="button" data-background-mode="color">Color background</button>
           </div>
           <div class="background-panel" data-background-panel="presets"><a class="preset-backgrounds-link" href="https://www.color4bg.com" target="_blank" rel="noopener noreferrer">Infinite possibilities - create your own on color4bg.com</a><div class="preset-grid" aria-label="Preset background images">
-            {presetBackgrounds.map((preset, index) => <button type="button" class:list={["preset-card", { selected: index === 0 }]} data-preset-src={preset.src} data-preset-name={preset.name} aria-pressed={index === 0 ? "true" : "false"} aria-label={`Choose background ${preset.name}`}><img src={preset.src} alt="" /></button>)}
+            {presetBackgrounds.map((preset, index) => <button type="button" class:list={["preset-card", { selected: index === 0 }]} data-preset-src={preset.src} data-preset-name={preset.name} aria-pressed={index === 0 ? "true" : "false"} aria-label={`Choose background ${preset.name}`}><img src={preset.previewSrc} alt="" width="110" height="82" loading="lazy" decoding="async" /></button>)}
           </div></div>
           <div class="background-panel" data-background-panel="upload" hidden><label class="upload-card"><input id="background-upload" type="file" accept="image/png,image/jpeg,image/webp" /><span class="upload-icon" aria-hidden="true">✦</span><span class="upload-copy"><strong>Background image</strong><small id="background-file-name">PNG, JPEG, or WebP</small></span><span class="upload-action">Choose or drop</span></label></div>
           <div class="background-panel" data-background-panel="color" hidden><fieldset class="color-background-control"><legend>Color background</legend><div class="color-style-options" aria-label="Color background style"><label><input type="radio" name="gradient-style" value="solid" checked /><span>Solid</span></label><label><input type="radio" name="gradient-style" value="horizontal" /><span>Horizontal</span></label><label><input type="radio" name="gradient-style" value="vertical" /><span>Vertical</span></label><label><input type="radio" name="gradient-style" value="radial" /><span>Radial</span></label></div><div class="color-pickers"><label><span id="primary-color-label">Color</span><input id="primary-color" type="color" value="#9b5de5" /><output id="primary-color-value">#9B5DE5</output></label><label id="secondary-color-control" hidden><span>Second color</span><input id="secondary-color" type="color" value="#f15bb5" /><output id="secondary-color-value">#F15BB5</output></label></div></fieldset></div>
@@ -60,7 +87,7 @@ const presetBackgrounds = (await readdir(presetDirectory))
           <article class="reassurance-card"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg><div><h3>Free & Open Source</h3><p>Free to use, no subscription or cookies, and available on GitHub.</p></div></article>
           <article class="reassurance-card"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m12 3-1.5 5.5L5 10l5.5 1.5L12 17l1.5-5.5L19 10l-5.5-1.5L12 3Z"/><path d="m19 16-.7 2.3L16 19l2.3.7L19 22l.7-2.3L22 19l-2.3-.7L19 16Z"/><path d="m5 3-.6 1.4L3 5l1.4.6L5 7l.6-1.4L7 5l-1.4-.6L5 3Z"/></svg><div><h3>Simple by Design</h3><p>Only the options you actually need. Use your own backgrounds.</p></div></article>
         </div>
-        <p class="byline">by <a href="https://www.alexisg.net" target="_blank" rel="noopener noreferrer">alexisg</a></p>
+        <footer class="footer"><span>by <a href="https://www.alexisg.net" target="_blank" rel="noopener noreferrer">alexisg</a></span><a href="https://github.com/agalbourdin/frameup" target="_blank" rel="noopener noreferrer">View FrameUp on GitHub</a></footer>
       </section>
     </main>
     <script src="../scripts/composer.ts"></script>
