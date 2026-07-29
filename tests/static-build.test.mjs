@@ -28,6 +28,12 @@ test("build produces a portable static application", async () => {
   assert.match(html, /href="https:\/\/www\.color4bg\.com" target="_blank" rel="noopener noreferrer">Infinite possibilities - create your own on color4bg\.com/);
   assert.match(html, /href="https:\/\/www\.alexisg\.net" target="_blank" rel="noopener noreferrer">alexisg/);
   assert.match(html, /href="https:\/\/github\.com\/agalbourdin\/frameup" target="_blank" rel="noopener noreferrer">View FrameUp on GitHub/);
+  assert.match(html, /1200 × 630 PX/);
+  const composerSource = await readFile(resolve("src/scripts/composer.ts"), "utf8");
+  assert.match(composerSource, /OUTPUT_SCALE=2/);
+  assert.match(composerSource, /imageSmoothingQuality="high"/);
+  assert.match(composerSource, /outputContext\.drawImage\(canvas,0,0,W,H\)/);
+  assert.match(composerSource, /composed-screenshot-1200x630\.png/);
   assert.match(robots, /User-agent: \*\nAllow: \//);
   assert.doesNotMatch(html, /document\.cookie/);
   assert.doesNotMatch(pageSource, /agalbourdin\.github\.io/);
