@@ -16,7 +16,7 @@ test("build produces a portable static application", async () => {
   assert.match(html, /No uploads/);
   assert.match(html, /Nothing is stored/);
   assert.match(html, /No account or cookies/);
-  assert.match(html, /href="https:\/\/alexisg\.net" target="_blank" rel="noopener noreferrer">alexisg/);
+  assert.match(html, /href="https:\/\/www\.alexisg\.net" target="_blank" rel="noopener noreferrer">alexisg/);
   assert.match(html, /(?:src|href)="\.\//);
   assert.doesNotMatch(html, /cloudflare|vinext|wrangler|openai|worker/i);
 

@@ -1,7 +1,7 @@
 :root { --ink:#fefefe; --muted:#b9b4bb; --paper:#303030; --surface:#3a3a3a; --line:#515151; --accent:#e18de1; --accent-soft:#513d51; }
 * { box-sizing:border-box; }
 body { margin:0; color:var(--ink); background:var(--paper); font-family:Montserrat,"Century Gothic",CenturyGothic,sans-serif; font-weight:300; }
-button,input { font:inherit; } main { min-height:100vh; padding:52px clamp(24px,6vw,88px) 72px; background:radial-gradient(circle at 91% 6%,rgba(225,141,225,.13),transparent 20rem),var(--paper); }
+button,input { font:inherit; } main { min-height:100vh; padding:52px clamp(24px,6vw,88px) 72px; background:var(--paper); }
 .hero { max-width:760px; margin-bottom:46px; } h1 { margin:0; font-size:clamp(3rem,7vw,6.75rem); line-height:.95; letter-spacing:-.07em; font-weight:200; } .intro { max-width:510px; margin:22px 0 0; color:var(--muted); font-size:17px; line-height:1.5; }
 .workspace { display:grid; grid-template-columns:minmax(280px,.75fr) minmax(440px,1.25fr); gap:clamp(24px,4vw,58px); align-items:start; } .controls { padding-top:8px; }
 .background-source { display:flex; gap:6px; margin-bottom:12px; padding:4px; border:1px solid var(--line); border-radius:10px; background:#383838; } .background-source button { flex:1; border:0; border-radius:7px; padding:9px 8px; background:transparent; color:var(--muted); cursor:pointer; font-size:12px; font-weight:500; } .background-source button.active { background:#4a4a4a; color:var(--accent); }

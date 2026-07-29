@@ -21,6 +21,16 @@ pnpm dev
 contents to any static host. Asset URLs are relative, so the same build works at
 the domain root or under a subdirectory.
 
+### GitHub Pages
+
+The production site is published at https://agalbourdin.github.io/frameup/.
+Pushing to `main` (or manually running the **Deploy to GitHub Pages** workflow)
+runs the type-check and static-build tests, then deploys `dist/` to GitHub Pages.
+
+Before the first deployment, open the repository **Settings → Pages** and set
+**Build and deployment → Source** to **GitHub Actions**. No Astro URL change is
+needed: the generated asset URLs are relative and work under `/frameup/`.
+
 ## Commands
 
 - `pnpm build`: produce `dist/`
