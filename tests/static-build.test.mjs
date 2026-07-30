@@ -32,6 +32,8 @@ test("build produces a portable static application", async () => {
   assert.match(html, /<meta name="description" content="[^"]+">/);
   assert.match(html, /<title>[^<]+<\/title>/);
   assert.match(html, /<meta property="og:title" content="[^"]+">/);
+  assert.match(html, /<meta property="og:site_name" content="FrameUp">/);
+  assert.match(html, /<meta property="og:locale" content="en_US">/);
   assert.match(html, /<meta name="twitter:card" content="summary_large_image">/);
   assert.match(html, /type="application\/ld\+json"/);
   assert.match(html, /id="twitter-download-button"/);
@@ -41,6 +43,11 @@ test("build produces a portable static application", async () => {
   if (publicPageUrl) {
     assert.match(html, new RegExp(`<link rel="canonical" href="${publicPageUrl}">`));
     assert.match(html, new RegExp(`<meta property="og:image" content="${publicPageUrl}og.jpg">`));
+    assert.match(html, /<meta property="og:image:width" content="1200">/);
+    assert.match(html, /<meta property="og:image:height" content="630">/);
+    assert.match(html, /<meta property="og:image:type" content="image\/jpeg">/);
+    assert.match(html, /<meta property="og:image:alt" content="FrameUp's screenshot composer interface">/);
+    assert.match(html, /<meta name="twitter:image:alt" content="FrameUp's screenshot composer interface">/);
     assert.match(robots, new RegExp(`Sitemap: ${publicPageUrl}sitemap.xml`));
     assert.match(sitemap, new RegExp(`<loc>${publicPageUrl}</loc>`));
   } else {

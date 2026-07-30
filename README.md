@@ -30,3 +30,7 @@ The production site is published at [frameup.alexisg.net](https://frameup.alexis
 pnpm install
 pnpm dev
 ```
+
+## License
+
+FrameUp is licensed under the [MIT License](LICENSE).
