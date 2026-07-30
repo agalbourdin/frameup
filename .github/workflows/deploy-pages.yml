@@ -42,8 +42,8 @@ jobs:
       - name: Type-check
         run: pnpm check
 
-      - name: Test static build
-        run: pnpm test
+      - name: Build static site
+        run: pnpm build
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
