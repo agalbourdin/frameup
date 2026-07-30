@@ -57,17 +57,17 @@ const presetBackgrounds = (await readdir(presetDirectory))
   </head>
   <body>
     <main>
-      <section class="hero" aria-labelledby="page-title"><h1 id="page-title">FrameUp</h1><p class="intro">FrameUp transforms raw screenshots into polished, share-ready visuals in seconds. Free, open source, private by design, and no sign-up required.</p></section>
+        <section class="hero" aria-labelledby="page-title"><h1 id="page-title">FrameUp</h1><p class="intro">FrameUp transforms raw screenshots into polished, share-ready visuals in seconds. Free, open source, private by design, and no sign-up required.</p></section>
       <section class="workspace" aria-label="Visual creation">
         <div class="controls">
           <div class="background-source" aria-label="Background image source">
-            <button type="button" class="active" data-background-mode="presets">Preset backgrounds</button>
-            <button type="button" data-background-mode="upload">Upload background</button>
-            <button type="button" data-background-mode="color">Color background</button>
+            <button type="button" class="active" data-background-mode="presets">Preset BG</button>
+            <button type="button" data-background-mode="upload">Upload BG</button>
+            <button type="button" data-background-mode="color">Color BG</button>
           </div>
-          <div class="background-panel" data-background-panel="presets"><a class="preset-backgrounds-link" href="https://www.color4bg.com" target="_blank" rel="noopener noreferrer">Create your own on color4bg.com</a><div class="preset-grid" aria-label="Preset background images">
+          <div class="background-panel" data-background-panel="presets"><div class="preset-grid" aria-label="Preset background images">
             {presetBackgrounds.map((preset, index) => <button type="button" class:list={["preset-card", { selected: index === 0 }]} data-preset-src={preset.src} data-preset-name={preset.name} aria-pressed={index === 0 ? "true" : "false"} aria-label={`Choose background ${preset.name}`}><img src={preset.previewSrc} alt="" width="110" height="82" loading="lazy" decoding="async" /></button>)}
-          </div></div>
+          </div><a class="preset-backgrounds-link" href="https://www.color4bg.com" target="_blank" rel="noopener noreferrer">Create your own background on color4bg.com <svg class="external-link-icon" aria-hidden="true" focusable="false" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2h5v5M14 2 7 9M14 9v3a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h3" /></svg></a></div>
           <div class="background-panel" data-background-panel="upload" hidden><label class="upload-card"><input id="background-upload" type="file" accept="image/png,image/jpeg,image/webp" /><span class="upload-icon" aria-hidden="true">✦</span><span class="upload-copy"><strong>Background image</strong><small id="background-file-name">PNG, JPEG, or WebP</small></span><span class="upload-action">Choose or drop</span></label></div>
           <div class="background-panel" data-background-panel="color" hidden><fieldset class="color-background-control"><legend>Color background</legend><div class="color-style-options" aria-label="Color background style"><label><input type="radio" name="gradient-style" value="solid" checked /><span>Solid</span></label><label><input type="radio" name="gradient-style" value="horizontal" /><span>Horizontal</span></label><label><input type="radio" name="gradient-style" value="vertical" /><span>Vertical</span></label><label><input type="radio" name="gradient-style" value="radial" /><span>Radial</span></label></div><div class="color-pickers"><label><span id="primary-color-label">Color</span><input id="primary-color" type="color" value="#9b5de5" /><output id="primary-color-value">#9B5DE5</output></label><label id="secondary-color-control" hidden><span>Second color</span><input id="secondary-color" type="color" value="#f15bb5" /><output id="secondary-color-value">#F15BB5</output></label></div></fieldset></div>
           <label class="upload-card"><input id="screenshot-upload" type="file" accept="image/png,image/jpeg,image/webp" /><span class="upload-icon" aria-hidden="true">▣</span><span class="upload-copy"><strong>Screenshot</strong><small id="screenshot-file-name">PNG, JPEG, or WebP</small></span><span class="upload-action">Choose or drop</span></label>
