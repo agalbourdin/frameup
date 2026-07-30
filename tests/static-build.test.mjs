@@ -8,7 +8,7 @@ test("build produces a portable static application", async () => {
   await access(resolve(dist, "index.html"));
   await access(resolve(dist, "preset-backgrounds/0_purple_grained.png"));
   await access(resolve(dist, "preset-backgrounds/preview/0_purple_grained.png"));
-  await access(resolve(dist, "og.png"));
+  await access(resolve(dist, "og.jpg"));
   await access(resolve(dist, "robots.txt"));
   await access(resolve(dist, "sitemap.xml"));
   const html = await readFile(resolve(dist, "index.html"), "utf8");
@@ -33,10 +33,14 @@ test("build produces a portable static application", async () => {
   assert.match(composerSource, /OUTPUT_SCALE=2/);
   assert.match(composerSource, /imageSmoothingQuality="high"/);
   assert.match(composerSource, /canvasBlob\(canvas\)/);
-  assert.match(composerSource, /value\.toBlob\(blob=>blob\?resolve\(blob\):reject\(new Error\("encode"\)\),"image\/png"\)/);
+  assert.match(composerSource, /value\.toBlob\(blob=>blob\?resolve\(blob\):reject\(new Error\("encode"\)\),type,quality\)/);
   assert.match(composerSource, /URL\.revokeObjectURL\(url\)/);
   assert.match(composerSource, /canvas\.toDataURL\("image\/png"\)/);
   assert.match(composerSource, /frameup@2x\.png/);
+  assert.match(html, /id="twitter-download-button"/);
+  assert.match(html, /Download X \/ Twitter Card JPEG \(1200 × 630\)/);
+  assert.match(composerSource, /canvasBlob\(twitterCardCanvas\(\),"image\/jpeg",\.95\)/);
+  assert.match(composerSource, /frameup-twitter-card\.jpg/);
   assert.doesNotMatch(composerSource, /pica/);
   assert.match(robots, /User-agent: \*\nAllow: \//);
   assert.doesNotMatch(html, /document\.cookie/);
@@ -44,7 +48,7 @@ test("build produces a portable static application", async () => {
 
   if (publicPageUrl) {
     assert.match(html, new RegExp(`<link rel="canonical" href="${publicPageUrl}">`));
-    assert.match(html, new RegExp(`<meta property="og:image" content="${publicPageUrl}og.png">`));
+    assert.match(html, new RegExp(`<meta property="og:image" content="${publicPageUrl}og.jpg">`));
     assert.match(robots, new RegExp(`Sitemap: ${publicPageUrl}sitemap.xml`));
     assert.match(sitemap, new RegExp(`<loc>${publicPageUrl}</loc>`));
   } else {
